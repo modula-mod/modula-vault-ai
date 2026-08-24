@@ -1,0 +1,547 @@
+{
+  "manifestVersion": 2,
+  "moduleId": "digital.modula.vault-notes.ai",
+  "name": "Vault AI",
+  "description": "Provider-neutral governed AI add-on for Vault Notes.",
+  "version": "0.1.0",
+  "standardVersion": "2.1.0",
+  "sectionVersions": {
+    "identity": "2.1.0",
+    "lifecycle": "2.1.0",
+    "backend": "2.1.0",
+    "engines": "2.1.0",
+    "ai": "2.1.0",
+    "permissions": "2.1.0",
+    "settings": "2.1.0",
+    "routes": "2.1.0",
+    "views": "2.1.0",
+    "records": "2.1.0",
+    "actions": "2.1.0",
+    "functions": "2.1.0",
+    "jobs": "2.1.0",
+    "events": "2.1.0",
+    "notifications": "2.1.0",
+    "search": "2.1.0",
+    "exports": "2.1.0",
+    "imports": "2.1.0",
+    "synchronization": "2.1.0",
+    "dependencies": "2.1.0",
+    "optionalDependencies": "2.1.0",
+    "integrations": "2.1.0",
+    "billing": "2.1.0",
+    "telemetry": "2.1.0",
+    "diagnostics": "2.1.0",
+    "accessibility": "2.1.0",
+    "localization": "2.1.0",
+    "appearance": "2.1.0",
+    "onboarding": "2.1.0",
+    "migrations": "2.1.0",
+    "capabilities": "2.1.0",
+    "services": "2.1.0",
+    "apis": "2.1.0",
+    "hooks": "2.1.0",
+    "metrics": "2.1.0",
+    "storage": "2.1.0",
+    "widgets": "2.1.0",
+    "navigation": "2.1.0",
+    "ui": "2.1.0",
+    "automation": "2.1.0",
+    "offline": "2.1.0",
+    "realtime": "2.1.0",
+    "versioning": "2.1.0",
+    "compatibilityMatrix": "2.1.0",
+    "marketplace": "2.1.0"
+  },
+  "publisher": {
+    "publisherId": "modula",
+    "displayName": "Modula",
+    "website": "https://modula.digital"
+  },
+  "source": {
+    "provider": "github",
+    "repository": "modula-mod/modula-vault-ai",
+    "commit": "0000000000000000000000000000000000000000",
+    "manifestPath": "module.manifest.json",
+    "releaseTag": "vault-ai-v0.1.0",
+    "releaseAssetName": "modula-vault-ai-0.1.0.tgz"
+  },
+  "license": {
+    "status": "firstParty",
+    "evidenceIds": [
+      "LICENSE",
+      "README.md",
+      "SECURITY.md"
+    ]
+  },
+  "trust": {
+    "requestedLevel": "firstParty"
+  },
+  "compatibility": {
+    "minimumGreenfieldVersion": "0.1.0",
+    "minimumModulaHostVersion": "0.1.0",
+    "protocolVersions": [
+      "greenfield.v1"
+    ],
+    "platforms": [
+      "ios",
+      "android",
+      "web",
+      "server"
+    ]
+  },
+  "permissions": [
+    {
+      "permission": "notes.read",
+      "reason": "Read only the user-selected note for an invoked AI action.",
+      "risk": "low"
+    },
+    {
+      "permission": "notes.search",
+      "reason": "Search Vault Notes only when the user requests AI-assisted search.",
+      "risk": "medium"
+    },
+    {
+      "permission": "notes.update",
+      "reason": "Apply a reviewed AI result to the selected note.",
+      "risk": "medium"
+    },
+    {
+      "permission": "notes.editor.contribute",
+      "reason": "Register declared AI editor commands.",
+      "risk": "low"
+    },
+    {
+      "permission": "notes.actions.contribute",
+      "reason": "Register declared note actions.",
+      "risk": "low"
+    },
+    {
+      "permission": "notes.events.subscribe",
+      "reason": "Subscribe to versioned Vault Notes events after approval.",
+      "risk": "medium"
+    },
+    {
+      "permission": "ai.request",
+      "reason": "Invoke a configured real AI provider through Greenfield.",
+      "risk": "medium"
+    },
+    {
+      "permission": "ai.context.private",
+      "reason": "Use the explicitly selected private note as bounded context.",
+      "risk": "high"
+    },
+    {
+      "permission": "ai.structured-output",
+      "reason": "Validate structured AI results before returning them.",
+      "risk": "medium"
+    }
+  ],
+  "dependencies": [
+    {
+      "moduleId": "digital.modula.vault-notes",
+      "versionRange": ">=1.2.0 <2.0.0",
+      "optional": false,
+      "reason": "Vault AI extends Vault Notes."
+    }
+  ],
+  "contributions": {
+    "functions": [
+      {
+        "id": "digital.modula.vault-notes.ai.function.summarise.registration",
+        "title": "Summarise current note",
+        "functionId": "digital.modula.vault-notes.ai.function.summarise",
+        "mode": "remoteHttp",
+        "inputSchemaRef": "schemas/vault-ai-request.schema.json",
+        "outputSchemaRef": "schemas/vault-ai-result.schema.json",
+        "executionRequired": true
+      },
+      {
+        "id": "digital.modula.vault-notes.ai.function.rewrite.registration",
+        "title": "Rewrite selected text",
+        "functionId": "digital.modula.vault-notes.ai.function.rewrite",
+        "mode": "remoteHttp",
+        "inputSchemaRef": "schemas/vault-ai-request.schema.json",
+        "outputSchemaRef": "schemas/vault-ai-result.schema.json",
+        "executionRequired": true
+      },
+      {
+        "id": "digital.modula.vault-notes.ai.function.generate-title.registration",
+        "title": "Generate title",
+        "functionId": "digital.modula.vault-notes.ai.function.generate-title",
+        "mode": "remoteHttp",
+        "inputSchemaRef": "schemas/vault-ai-request.schema.json",
+        "outputSchemaRef": "schemas/vault-ai-result.schema.json",
+        "executionRequired": true
+      },
+      {
+        "id": "digital.modula.vault-notes.ai.function.extract-tasks.registration",
+        "title": "Extract tasks",
+        "functionId": "digital.modula.vault-notes.ai.function.extract-tasks",
+        "mode": "remoteHttp",
+        "inputSchemaRef": "schemas/vault-ai-request.schema.json",
+        "outputSchemaRef": "schemas/vault-ai-result.schema.json",
+        "executionRequired": true
+      },
+      {
+        "id": "digital.modula.vault-notes.ai.function.ask-note.registration",
+        "title": "Ask about current note",
+        "functionId": "digital.modula.vault-notes.ai.function.ask-note",
+        "mode": "remoteHttp",
+        "inputSchemaRef": "schemas/vault-ai-request.schema.json",
+        "outputSchemaRef": "schemas/vault-ai-result.schema.json",
+        "executionRequired": true
+      }
+    ],
+    "tools": [
+      {
+        "id": "digital.modula.vault-notes.ai.tool.summarise",
+        "title": "Summarise with Vault AI",
+        "toolId": "digital.modula.vault-notes.ai.tool.summarise",
+        "functionId": "digital.modula.vault-notes.ai.function.summarise",
+        "surfaces": [
+          "composer-tools",
+          "vault-notes"
+        ]
+      }
+    ],
+    "jobs": [
+      {
+        "id": "digital.modula.vault-notes.ai.job.completion",
+        "title": "Vault AI completion",
+        "jobType": "vault-ai.completion.v1",
+        "mode": "backgroundJob"
+      }
+    ],
+    "events": [
+      {
+        "id": "digital.modula.vault-notes.ai.events.note-updated",
+        "title": "Note updated",
+        "eventType": "vault.note.updated.v1",
+        "direction": "subscribes"
+      }
+    ]
+  },
+  "backend": {
+    "mode": "module-managed",
+    "protocolVersion": "1.0.0",
+    "endpoints": {
+      "baseUrlStrategy": "registry",
+      "apiVersion": "1.0.0",
+      "discoveryPath": "/.well-known/modula-module.json",
+      "healthPath": "/v1/health",
+      "capabilitiesPath": "/v1/capabilities",
+      "actionsPath": "/v1/actions",
+      "allowedHosts": [
+        "vault-ai.modula.digital"
+      ]
+    },
+    "authentication": {
+      "strategy": "greenfield-signed-jwt",
+      "tokenExchangeRequired": true,
+      "audience": "modula-vault-ai",
+      "tokenTtlSeconds": 120,
+      "sessionExchangePath": "/v1/session/exchange"
+    },
+    "trust": {
+      "publisherId": "modula",
+      "allowedOrigins": [
+        "https://vault-ai.modula.digital"
+      ]
+    },
+    "data": {
+      "primaryStore": "module-backend",
+      "categories": [
+        {
+          "id": "vault-ai-derived-state",
+          "description": "Vault AI extension-owned summaries, preferences, and derived metadata.",
+          "location": "module-backend",
+          "classification": "private",
+          "exportable": true,
+          "deletable": true
+        }
+      ],
+      "exportSupported": true,
+      "deletionSupported": true,
+      "backupResponsibility": "publisher"
+    },
+    "deployment": {
+      "ownership": "modula-hosted",
+      "multiTenant": true,
+      "selfHostingSupported": false
+    },
+    "actions": [
+      {
+        "actionId": "digital.modula.vault-notes.ai.function.summarise",
+        "title": "summarise",
+        "method": "POST",
+        "path": "/v1/actions/summarise",
+        "inputSchema": "schemas/vault-ai-request.schema.json",
+        "outputSchema": "schemas/vault-ai-result.schema.json",
+        "permissions": [
+          "notes.read",
+          "ai.request"
+        ],
+        "idempotent": true,
+        "timeoutMs": 15000,
+        "sideEffects": "none",
+        "confirmation": "none"
+      },
+      {
+        "actionId": "digital.modula.vault-notes.ai.function.rewrite",
+        "title": "rewrite",
+        "method": "POST",
+        "path": "/v1/actions/rewrite",
+        "inputSchema": "schemas/vault-ai-request.schema.json",
+        "outputSchema": "schemas/vault-ai-result.schema.json",
+        "permissions": [
+          "notes.read",
+          "notes.update",
+          "ai.request"
+        ],
+        "idempotent": true,
+        "timeoutMs": 15000,
+        "sideEffects": "internal-write",
+        "confirmation": "user"
+      },
+      {
+        "actionId": "digital.modula.vault-notes.ai.function.generate-title",
+        "title": "generate-title",
+        "method": "POST",
+        "path": "/v1/actions/generate-title",
+        "inputSchema": "schemas/vault-ai-request.schema.json",
+        "outputSchema": "schemas/vault-ai-result.schema.json",
+        "permissions": [
+          "notes.read",
+          "notes.update",
+          "ai.request"
+        ],
+        "idempotent": true,
+        "timeoutMs": 15000,
+        "sideEffects": "internal-write",
+        "confirmation": "user"
+      },
+      {
+        "actionId": "digital.modula.vault-notes.ai.function.extract-tasks",
+        "title": "extract-tasks",
+        "method": "POST",
+        "path": "/v1/actions/extract-tasks",
+        "inputSchema": "schemas/vault-ai-request.schema.json",
+        "outputSchema": "schemas/vault-ai-result.schema.json",
+        "permissions": [
+          "notes.read",
+          "ai.request"
+        ],
+        "idempotent": true,
+        "timeoutMs": 15000,
+        "sideEffects": "none",
+        "confirmation": "none"
+      },
+      {
+        "actionId": "digital.modula.vault-notes.ai.function.ask-note",
+        "title": "ask-note",
+        "method": "POST",
+        "path": "/v1/actions/ask-note",
+        "inputSchema": "schemas/vault-ai-request.schema.json",
+        "outputSchema": "schemas/vault-ai-result.schema.json",
+        "permissions": [
+          "notes.read",
+          "ai.request"
+        ],
+        "idempotent": true,
+        "timeoutMs": 15000,
+        "sideEffects": "none",
+        "confirmation": "none"
+      }
+    ]
+  },
+  "integrity": {
+    "manifestSha256": "dc497a072390f00dfae07e656052f02d3866a1b4a1a4fe19004ba52c121bd900",
+    "releaseSha256": "0000000000000000000000000000000000000000000000000000000000000000"
+  },
+  "extensionProduct": {
+    "version": "0.1.0",
+    "kind": "addon",
+    "targets": [
+      {
+        "productId": "digital.modula.vault-notes",
+        "versionRange": ">=1.2.0 <2.0.0",
+        "requiredCapabilities": [
+          "notes.read",
+          "notes.search",
+          "notes.update",
+          "notes.editor.contribute",
+          "notes.actions.contribute",
+          "notes.events.subscribe"
+        ],
+        "requiredExtensionPoints": [
+          "digital.modula.vault-notes.note.actions",
+          "digital.modula.vault-notes.editor.command",
+          "digital.modula.vault-notes.editor.toolbar",
+          "digital.modula.vault-notes.settings.section"
+        ]
+      }
+    ],
+    "extensionPoints": [
+      {
+        "id": "digital.modula.vault-notes.ai.research.source",
+        "title": "Vault AI research sources",
+        "contributionKinds": [
+          "search.provider"
+        ],
+        "requiredCapability": "notes.search",
+        "maxContributions": 10
+      }
+    ],
+    "contributions": [
+      {
+        "id": "digital.modula.vault-notes.ai.contribution.summarise-action",
+        "title": "Summarise",
+        "kind": "menu.item",
+        "extensionPoint": "digital.modula.vault-notes.note.actions",
+        "functionId": "digital.modula.vault-notes.ai.function.summarise",
+        "requiredCapability": "notes.read",
+        "availability": {
+          "platforms": [
+            "ios",
+            "android",
+            "web"
+          ],
+          "requiresOnline": true,
+          "requiredCapabilities": [
+            "ai.request"
+          ]
+        },
+        "priority": 100
+      },
+      {
+        "id": "digital.modula.vault-notes.ai.contribution.ask-action",
+        "title": "Ask AI",
+        "kind": "menu.item",
+        "extensionPoint": "digital.modula.vault-notes.note.actions",
+        "functionId": "digital.modula.vault-notes.ai.function.ask-note",
+        "requiredCapability": "notes.read",
+        "availability": {
+          "platforms": [
+            "ios",
+            "android",
+            "web"
+          ],
+          "requiresOnline": true,
+          "requiredCapabilities": [
+            "ai.request"
+          ]
+        },
+        "priority": 100
+      },
+      {
+        "id": "digital.modula.vault-notes.ai.contribution.rewrite-command",
+        "title": "Rewrite",
+        "kind": "editor.command",
+        "extensionPoint": "digital.modula.vault-notes.editor.command",
+        "functionId": "digital.modula.vault-notes.ai.function.rewrite",
+        "requiredCapability": "notes.read",
+        "availability": {
+          "platforms": [
+            "ios",
+            "android",
+            "web"
+          ],
+          "requiresOnline": true,
+          "requiredCapabilities": [
+            "ai.request"
+          ]
+        },
+        "priority": 100
+      },
+      {
+        "id": "digital.modula.vault-notes.ai.contribution.extract-tasks-command",
+        "title": "Extract tasks",
+        "kind": "editor.command",
+        "extensionPoint": "digital.modula.vault-notes.editor.command",
+        "functionId": "digital.modula.vault-notes.ai.function.extract-tasks",
+        "requiredCapability": "notes.read",
+        "availability": {
+          "platforms": [
+            "ios",
+            "android",
+            "web"
+          ],
+          "requiresOnline": true,
+          "requiredCapabilities": [
+            "ai.request"
+          ]
+        },
+        "priority": 100
+      },
+      {
+        "id": "digital.modula.vault-notes.ai.contribution.title-action",
+        "title": "Generate title",
+        "kind": "toolbar.action",
+        "extensionPoint": "digital.modula.vault-notes.editor.toolbar",
+        "functionId": "digital.modula.vault-notes.ai.function.generate-title",
+        "requiredCapability": "notes.read",
+        "availability": {
+          "platforms": [
+            "ios",
+            "android",
+            "web"
+          ],
+          "requiresOnline": true,
+          "requiredCapabilities": [
+            "ai.request"
+          ]
+        },
+        "priority": 100
+      },
+      {
+        "id": "digital.modula.vault-notes.ai.contribution.settings-section",
+        "title": "AI preferences",
+        "kind": "settings.section",
+        "extensionPoint": "digital.modula.vault-notes.settings.section",
+        "functionId": "digital.modula.vault-notes.ai.function.ask-note",
+        "requiredCapability": "notes.actions.contribute",
+        "availability": {
+          "platforms": [
+            "ios",
+            "android",
+            "web"
+          ],
+          "requiresOnline": false,
+          "requiredCapabilities": [
+            "ai.request"
+          ]
+        },
+        "priority": 100
+      },
+      {
+        "id": "digital.modula.vault-notes.ai.contribution.composer-tool",
+        "title": "Summarise with Vault AI",
+        "kind": "composer.tool",
+        "extensionPoint": "digital.modula.vault-notes.composer.tool",
+        "functionId": "digital.modula.vault-notes.ai.function.summarise",
+        "requiredCapability": "notes.read",
+        "availability": {
+          "platforms": [
+            "ios",
+            "android",
+            "web"
+          ],
+          "requiresOnline": true,
+          "requiredCapabilities": [
+            "ai.request"
+          ]
+        },
+        "priority": 100
+      }
+    ],
+    "retention": {
+      "defaultMode": "KEEP_DATA",
+      "supportsUserChoice": true,
+      "metadataNamespace": "digital.modula.vault-notes.ai"
+    },
+    "graphPolicy": {
+      "maxDepth": 8,
+      "maxNodes": 128
+    }
+  }
+}
