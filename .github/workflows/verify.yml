@@ -16,7 +16,10 @@ jobs:
       - uses: actions/setup-node@v4
         with: {node-version: 24, cache: pnpm, cache-dependency-path: modula-vault-ai/pnpm-lock.yaml}
       - run: pnpm install --frozen-lockfile
+        working-directory: modula-module-standard
+      - run: pnpm build
+        working-directory: modula-module-standard
+      - run: pnpm install --frozen-lockfile
         working-directory: modula-vault-ai
       - run: pnpm verify
         working-directory: modula-vault-ai
-
