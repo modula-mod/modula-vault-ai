@@ -1,0 +1,8 @@
+[
+  {"id": "digital.modula.vault-notes.ai.function.summarise", "family": "function.invoke", "label": "Summarise", "functionId": "digital.modula.vault-notes.ai.function.summarise"},
+  {"id": "digital.modula.vault-notes.ai.function.ask-note", "family": "function.invoke", "label": "Ask AI", "functionId": "digital.modula.vault-notes.ai.function.ask-note"},
+  {"id": "digital.modula.vault-notes.ai.function.rewrite", "family": "function.invoke", "label": "Rewrite", "functionId": "digital.modula.vault-notes.ai.function.rewrite"},
+  {"id": "digital.modula.vault-notes.ai.function.extract-tasks", "family": "function.invoke", "label": "Extract tasks", "functionId": "digital.modula.vault-notes.ai.function.extract-tasks"},
+  {"id": "digital.modula.vault-notes.ai.function.generate-title", "family": "function.invoke", "label": "Generate title", "functionId": "digital.modula.vault-notes.ai.function.generate-title"},
+  {"id": "saveAiSettings", "family": "settings.update", "label": "Save AI preferences", "settingsKey": "vaultAi.preferences"}
+]

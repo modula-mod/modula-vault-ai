@@ -1,5 +1,5 @@
 export const VAULT_AI_PRODUCT_ID = 'digital.modula.vault-notes.ai' as const
-export const VAULT_AI_VERSION = '0.2.0' as const
+export const VAULT_AI_VERSION = '0.3.0' as const
 export const VAULT_AI_TARGET_PRODUCT_ID = 'digital.modula.vault-notes' as const
 
 export type CompletionRequest = {
@@ -86,4 +86,3 @@ export class TestOnlyDeterministicProvider implements ModulaAIProvider {
     }
   }
 }
-
