@@ -1,0 +1,260 @@
+{
+  "$schema": "https://modula.digital/schemas/product-standard/1.0-rc/product.schema.json",
+  "schema": "modula.product.1.0",
+  "productStandard": "1.0-RC",
+  "identity": {
+    "id": "digital.modula.vault-notes.ai",
+    "kind": "addon",
+    "version": "0.2.0",
+    "displayName": "Vault AI",
+    "description": "Provider-neutral AI add-on for Vault Notes. Requests the ai.generate engine capability through Greenfield. Does not name OpenAI, Gemini, or Anthropic.",
+    "status": "beta",
+    "visibility": "beta"
+  },
+  "publisher": {
+    "id": "modula",
+    "displayName": "Modula",
+    "website": "https://modula.digital",
+    "supportUrl": "https://modula.digital/support"
+  },
+  "source": {
+    "repository": "modula-mod/modula-vault-ai",
+    "commit": "1c6af327c7164a1b83c6d79621bc042a72ce508f",
+    "manifestPath": "modula.product.json",
+    "provider": "github"
+  },
+  "licence": {
+    "spdx": "UNLICENSED",
+    "evidence": [
+      "LICENSE"
+    ],
+    "declaredByPublisher": true
+  },
+  "release": {
+    "channel": "beta",
+    "notes": "MPS 1.0 canonical add-on packaging. External AI providers remain NOT_CONFIGURED. Icon is a development placeholder.",
+    "builder": "modula-product-release",
+    "provenance": {
+      "manifestSha256": "f8cf75b72f353841b8fb0df63c3a60a7199b8ef6fe4c60cb53fcded913aac222"
+    }
+  },
+  "security": {
+    "baseline": "mps-1.0",
+    "rawUserBearerForwarding": "forbidden",
+    "crossProductDatabaseAccess": "forbidden",
+    "arbitraryRemoteCode": "forbidden-by-default"
+  },
+  "presentation": {
+    "icon": {
+      "role": "product.icon",
+      "path": "assets/icon/icon.svg",
+      "mediaType": "image/svg+xml",
+      "sha256": "62e55003edd81399ca8ed8cd8451255d7e034b1302566f74f9c5ce0f5a7ef8e5",
+      "developmentAsset": true,
+      "alt": "Vault AI development placeholder icon"
+    }
+  },
+  "compatibility": {
+    "productStandard": "^1.0.0-rc",
+    "greenfieldProtocol": "greenfield.v1",
+    "host": ">=1.0.0",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ]
+  },
+  "telemetry": {
+    "destinationClass": "none",
+    "optOut": "not-applicable",
+    "purpose": "none"
+  },
+  "network": {
+    "class": "service-fabric-only"
+  },
+  "family": {
+    "id": "digital.modula.vault",
+    "role": "member"
+  },
+  "relationships": [
+    {
+      "type": "belongsToFamily",
+      "productId": "digital.modula.vault"
+    },
+    {
+      "type": "targets",
+      "productId": "digital.modula.vault-notes",
+      "versionRange": "^1.2.0"
+    },
+    {
+      "type": "extends",
+      "productId": "digital.modula.vault-notes",
+      "versionRange": "^1.2.0"
+    }
+  ],
+  "frontend": {
+    "mode": "host-contribution"
+  },
+  "backend": {
+    "mode": "engine-backed",
+    "engineRequirements": [
+      {
+        "capability": "ai.generate"
+      }
+    ]
+  },
+  "permissions": [
+    {
+      "id": "notes.read.selected",
+      "reason": "Read only the note you select for an AI action.",
+      "category": "records",
+      "required": true,
+      "risk": "medium"
+    },
+    {
+      "id": "ai.request",
+      "reason": "Invoke a configured AI engine through Greenfield. Honest NOT_CONFIGURED when no provider is bound.",
+      "category": "AI",
+      "required": true,
+      "risk": "medium"
+    }
+  ],
+  "capabilities": {
+    "requires": [
+      "notes.read",
+      "ai.generate"
+    ],
+    "provides": [
+      "notes.summarise"
+    ],
+    "requests": [
+      "ai.generate"
+    ]
+  },
+  "dependencies": [
+    {
+      "type": "product",
+      "id": "digital.modula.vault-notes",
+      "versionRange": "^1.2.0"
+    },
+    {
+      "type": "capability",
+      "id": "ai.generate"
+    }
+  ],
+  "secrets": [
+    {
+      "id": "engine.ai.generate",
+      "scope": "engine",
+      "purpose": "Greenfield-brokered AI engine credential. Manifest never contains values or secret:// handles."
+    }
+  ],
+  "entitlements": [
+    {
+      "id": "ai.generate",
+      "reason": "AI add-on requires an AI engine entitlement granted by Greenfield."
+    }
+  ],
+  "usage": {
+    "meters": [
+      {
+        "id": "ai-calls",
+        "capability": "ai.generate",
+        "unit": "invocations"
+      }
+    ]
+  },
+  "contributions": [
+    {
+      "id": "digital.modula.vault-notes.ai.contribution.summarise-action",
+      "target": "digital.modula.vault-notes/note.actions@1",
+      "label": "Summarise",
+      "priority": 100,
+      "capabilities": [
+        "ai.generate"
+      ]
+    },
+    {
+      "id": "digital.modula.vault-notes.ai.contribution.ask-action",
+      "target": "digital.modula.vault-notes/note.actions@1",
+      "label": "Ask AI",
+      "priority": 100,
+      "capabilities": [
+        "ai.generate"
+      ]
+    },
+    {
+      "id": "digital.modula.vault-notes.ai.contribution.rewrite-command",
+      "target": "digital.modula.vault-notes/editor.command@1",
+      "label": "Rewrite",
+      "priority": 100,
+      "capabilities": [
+        "ai.generate"
+      ]
+    },
+    {
+      "id": "digital.modula.vault-notes.ai.contribution.extract-tasks-command",
+      "target": "digital.modula.vault-notes/editor.command@1",
+      "label": "Extract tasks",
+      "priority": 100,
+      "capabilities": [
+        "ai.generate"
+      ]
+    },
+    {
+      "id": "digital.modula.vault-notes.ai.contribution.title-action",
+      "target": "digital.modula.vault-notes/editor.toolbar@1",
+      "label": "Generate title",
+      "priority": 100,
+      "capabilities": [
+        "ai.generate"
+      ]
+    },
+    {
+      "id": "digital.modula.vault-notes.ai.contribution.settings-section",
+      "target": "digital.modula.vault-notes/settings.section@1",
+      "label": "AI preferences",
+      "priority": 100
+    },
+    {
+      "id": "digital.modula.vault-notes.ai.contribution.composer-tool",
+      "target": "digital.modula.vault-notes/composer.tool@1",
+      "label": "Summarise with Vault AI",
+      "priority": 100,
+      "capabilities": [
+        "ai.generate"
+      ]
+    }
+  ],
+  "privacy": {
+    "dataAccessed": [
+      "user-selected note content when an AI action is invoked"
+    ],
+    "dataCreated": [
+      "optional derived summaries owned by the add-on"
+    ],
+    "dataTransmitted": [
+      "engine capability ai.generate when a provider is configured"
+    ],
+    "externalProcessors": [
+      "engine-resolved-by-greenfield"
+    ],
+    "retention": "derived results until uninstall; selected note remains owned by Vault Notes",
+    "export": "supported for add-on-owned derived records",
+    "deletion": "supported",
+    "analytics": "none",
+    "telemetry": "none"
+  },
+  "support": {
+    "documentation": "https://modula.digital/docs",
+    "support": "https://modula.digital/support",
+    "privacy": "https://modula.digital/privacy",
+    "securityContact": "https://modula.digital/security",
+    "publisherContact": "https://modula.digital/support"
+  },
+  "offers": [
+    {
+      "model": "free"
+    }
+  ]
+}
