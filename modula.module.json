@@ -1,7 +1,7 @@
 {
   "schemaVersion": "2.1.0",
   "standardVersion": "2.1.0",
-  "moduleVersion": "0.1.0",
+  "moduleVersion": "0.2.0",
   "manifestSchemaVersion": "2.1.0",
   "dataSchemaVersion": "1.0.0",
   "id": "digital.modula.vault-notes.ai",
@@ -589,7 +589,7 @@
   },
   "release": {
     "repository": "modula-mod/modula-vault-ai",
-    "commitSha": "33bcd0355fceae2b940697f75cee485c1ed90319",
+    "commitSha": "93b3b9f8d0507d655a3db0ef0be04fb13eae5f95",
     "checksum": "0000000000000000000000000000000000000000000000000000000000000000",
     "licenseEvidence": [
       "LICENSE",
@@ -701,7 +701,7 @@
       {
         "id": "digital.modula.vault-notes.ai.functions",
         "title": "Vault AI headless functions",
-        "version": "0.1.0",
+        "version": "0.2.0",
         "kind": "service"
       }
     ]
@@ -713,7 +713,7 @@
         "id": "digital.modula.vault-notes.ai.service",
         "title": "Vault AI service",
         "kind": "ai",
-        "version": "0.1.0",
+        "version": "0.2.0",
         "contract": "digital.modula.vault-notes.ai.service.v1",
         "permissions": [
           "notes.read",
@@ -1264,7 +1264,7 @@
   },
   "versioning": {
     "version": "2.1.0",
-    "moduleVersion": "0.1.0",
+    "moduleVersion": "0.2.0",
     "standardVersion": "2.1.0",
     "manifestVersion": "2.1.0"
   },
@@ -1366,7 +1366,7 @@
     "items": []
   },
   "extensionProduct": {
-    "version": "0.1.0",
+    "version": "0.2.0",
     "kind": "addon",
     "targets": [
       {
