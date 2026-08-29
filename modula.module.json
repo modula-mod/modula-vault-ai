@@ -589,7 +589,7 @@
   },
   "release": {
     "repository": "modula-mod/modula-vault-ai",
-    "commitSha": "77c68460bda682ee5e0b84cebc1d3d2e587e5659",
+    "commitSha": "3e5be8c3cf1722d69f19afca95dd36dd21df61a0",
     "checksum": "0000000000000000000000000000000000000000000000000000000000000000",
     "licenseEvidence": [
       "LICENSE",

@@ -19,7 +19,7 @@
   },
   "source": {
     "repository": "modula-mod/modula-vault-ai",
-    "commit": "1c6af327c7164a1b83c6d79621bc042a72ce508f",
+    "commit": "3e5be8c3cf1722d69f19afca95dd36dd21df61a0",
     "manifestPath": "modula.product.json",
     "provider": "github"
   },
