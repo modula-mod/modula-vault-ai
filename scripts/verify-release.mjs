@@ -10,7 +10,7 @@ const check = (condition, message) => condition ? console.log(`PASS ${message}`)
 
 const validation = validateModulaModuleManifest(standard)
 check(validation.valid, `Standard 2.1 manifest validates${validation.valid ? '' : `: ${validation.issues.map(issue => `${issue.code} ${issue.path}`).join('; ')}`}`)
-check(standard.id === 'digital.modula.vault-notes.ai' && standard.moduleVersion === '0.1.0', 'Vault AI immutable identity declared')
+check(standard.id === 'digital.modula.vault-notes.ai' && standard.moduleVersion === '0.2.0', 'Vault AI immutable identity declared')
 check(standard.extensionProduct?.kind === 'addon' && standard.extensionProduct.targets?.[0]?.productId === 'digital.modula.vault-notes', 'Vault Notes target declared')
 check(standard.extensionProduct.contributions.length >= 7, 'dynamic contributions declared')
 check(standard.functions.some(item => item.id.endsWith('.function.ask-note')), 'ask-note function declared')
