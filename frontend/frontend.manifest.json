@@ -1,0 +1,241 @@
+{
+  "$schema": "https://modula.digital/schemas/product-standard/1.0-rc/frontend.schema.json",
+  "accessibility": {
+    "declaration": "host-baseline-with-product-semantics",
+    "keyboardNavigation": true,
+    "reduceMotion": true,
+    "scalableText": true,
+    "screenReader": true
+  },
+  "actions": [
+    {
+      "family": "function.invoke",
+      "functionId": "digital.modula.vault-notes.ai.function.summarise",
+      "id": "digital.modula.vault-notes.ai.function.summarise",
+      "label": "Summarise"
+    },
+    {
+      "family": "function.invoke",
+      "functionId": "digital.modula.vault-notes.ai.function.ask-note",
+      "id": "digital.modula.vault-notes.ai.function.ask-note",
+      "label": "Ask AI"
+    },
+    {
+      "family": "function.invoke",
+      "functionId": "digital.modula.vault-notes.ai.function.rewrite",
+      "id": "digital.modula.vault-notes.ai.function.rewrite",
+      "label": "Rewrite"
+    },
+    {
+      "family": "function.invoke",
+      "functionId": "digital.modula.vault-notes.ai.function.extract-tasks",
+      "id": "digital.modula.vault-notes.ai.function.extract-tasks",
+      "label": "Extract tasks"
+    },
+    {
+      "family": "function.invoke",
+      "functionId": "digital.modula.vault-notes.ai.function.generate-title",
+      "id": "digital.modula.vault-notes.ai.function.generate-title",
+      "label": "Generate title"
+    },
+    {
+      "family": "settings.update",
+      "id": "saveAiSettings",
+      "label": "Save AI preferences",
+      "settingsKey": "vaultAi.preferences"
+    }
+  ],
+  "contributions": [
+    {
+      "action": "digital.modula.vault-notes.ai.function.summarise",
+      "component": {
+        "action": "digital.modula.vault-notes.ai.function.summarise",
+        "text": "Summarise",
+        "type": "button"
+      },
+      "id": "digital.modula.vault-notes.ai.contribution.summarise-action",
+      "requiredCapabilities": [
+        "ai.generate"
+      ],
+      "requiredPermissions": [
+        "notes.read.selected",
+        "ai.request"
+      ],
+      "target": "digital.modula.vault-notes/note.actions@1"
+    },
+    {
+      "action": "digital.modula.vault-notes.ai.function.ask-note",
+      "component": {
+        "action": "digital.modula.vault-notes.ai.function.ask-note",
+        "text": "Ask AI",
+        "type": "button"
+      },
+      "id": "digital.modula.vault-notes.ai.contribution.ask-action",
+      "requiredCapabilities": [
+        "ai.generate"
+      ],
+      "requiredPermissions": [
+        "notes.read.selected",
+        "ai.request"
+      ],
+      "target": "digital.modula.vault-notes/note.actions@1"
+    },
+    {
+      "action": "digital.modula.vault-notes.ai.function.rewrite",
+      "component": {
+        "action": "digital.modula.vault-notes.ai.function.rewrite",
+        "text": "Rewrite",
+        "type": "button"
+      },
+      "id": "digital.modula.vault-notes.ai.contribution.rewrite-command",
+      "requiredCapabilities": [
+        "ai.generate"
+      ],
+      "requiredPermissions": [
+        "notes.read.selected",
+        "ai.request"
+      ],
+      "target": "digital.modula.vault-notes/editor.command@1"
+    },
+    {
+      "action": "digital.modula.vault-notes.ai.function.extract-tasks",
+      "component": {
+        "action": "digital.modula.vault-notes.ai.function.extract-tasks",
+        "text": "Extract tasks",
+        "type": "button"
+      },
+      "id": "digital.modula.vault-notes.ai.contribution.extract-tasks-command",
+      "requiredCapabilities": [
+        "ai.generate"
+      ],
+      "requiredPermissions": [
+        "notes.read.selected",
+        "ai.request"
+      ],
+      "target": "digital.modula.vault-notes/editor.command@1"
+    },
+    {
+      "action": "digital.modula.vault-notes.ai.function.generate-title",
+      "component": {
+        "action": "digital.modula.vault-notes.ai.function.generate-title",
+        "text": "Generate title",
+        "type": "button"
+      },
+      "id": "digital.modula.vault-notes.ai.contribution.title-action",
+      "requiredCapabilities": [
+        "ai.generate"
+      ],
+      "requiredPermissions": [
+        "notes.read.selected",
+        "ai.request"
+      ],
+      "target": "digital.modula.vault-notes/editor.toolbar@1"
+    },
+    {
+      "id": "digital.modula.vault-notes.ai.contribution.settings-section",
+      "settingsView": "settings",
+      "target": "digital.modula.vault-notes/settings.section@1"
+    },
+    {
+      "action": "digital.modula.vault-notes.ai.function.summarise",
+      "component": {
+        "action": "digital.modula.vault-notes.ai.function.summarise",
+        "text": "Summarise with Vault AI",
+        "type": "button"
+      },
+      "id": "digital.modula.vault-notes.ai.contribution.composer-tool",
+      "requiredCapabilities": [
+        "ai.generate"
+      ],
+      "requiredPermissions": [
+        "notes.read.selected",
+        "ai.request"
+      ],
+      "target": "digital.modula.vault-notes/composer.tool@1"
+    }
+  ],
+  "frontendSchemaVersion": "1.0.0",
+  "hostRuntime": {
+    "versionRange": ">=1.0.0 <2.0.0"
+  },
+  "mode": "host-contribution",
+  "mpsVersion": "1.0-RC",
+  "productId": "digital.modula.vault-notes.ai",
+  "releaseVersion": "0.3.0",
+  "schema": "modula.frontend.1.0",
+  "settings": {
+    "viewId": "settings"
+  },
+  "views": [
+    {
+      "bindings": [
+        {
+          "id": "preferences",
+          "settingsKey": "vaultAi.preferences",
+          "source": "settings"
+        },
+        {
+          "capability": "ai.generate",
+          "id": "provider",
+          "source": "capability"
+        }
+      ],
+      "id": "settings",
+      "kind": "settings",
+      "root": {
+        "accessibility": {
+          "label": "Vault AI settings",
+          "role": "form"
+        },
+        "children": [
+          {
+            "binding": "provider",
+            "text": "AI provider status",
+            "type": "metadata"
+          },
+          {
+            "binding": "preferences",
+            "field": {
+              "id": "concise",
+              "label": "Prefer concise responses",
+              "type": "boolean"
+            },
+            "type": "field"
+          },
+          {
+            "binding": "preferences",
+            "field": {
+              "id": "includeSources",
+              "label": "Include source references when available",
+              "type": "boolean"
+            },
+            "type": "field"
+          },
+          {
+            "action": "saveAiSettings",
+            "text": "Save AI preferences",
+            "type": "button"
+          }
+        ],
+        "type": "section"
+      },
+      "states": {
+        "capabilityUnavailable": {
+          "accessibility": {
+            "role": "status"
+          },
+          "text": "No AI provider is configured. Vault AI will not generate or simulate output.",
+          "type": "errorState"
+        },
+        "error": {
+          "accessibility": {
+            "role": "status"
+          },
+          "text": "Vault AI settings are unavailable",
+          "type": "errorState"
+        }
+      },
+      "title": "Vault AI settings"
+    }
+  ]
+}
