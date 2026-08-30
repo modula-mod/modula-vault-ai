@@ -20,7 +20,7 @@ check(standard.functions.some(item => item.id.endsWith('.function.ask-note')), '
 check(!standard.permissions.some(item => ['notes.delete', 'notes.export'].includes(item.id)), 'delete and export capabilities absent')
 check(greenfield.backend?.endpoints?.baseUrlStrategy === 'registry' && !JSON.stringify(greenfield.backend).includes('http://'), 'service origin is registry-governed')
 check(greenfield.backend?.authentication?.tokenExchangeRequired === true && greenfield.backend.authentication.tokenTtlSeconds <= 900, 'short-lived Greenfield token exchange required')
-check(packageJson.files.includes('frontend'), 'release package includes frontend')
+check(packageJson.files.includes('frontend/frontend.manifest.json') && !packageJson.files.includes('frontend'), 'release package includes only the compiled frontend')
 
 const frontendPath = product.frontend?.artifact?.path
 check(product.frontend?.mode === 'host-contribution' && frontendPath === 'frontend/frontend.manifest.json' && existsSync(frontendPath), 'product-owned host contribution artifact exists')
