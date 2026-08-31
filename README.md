@@ -1,6 +1,6 @@
 # Vault AI
 
-Canonical MPS source: `modula.product.json` (1.0-RC). Published ID stays `digital.modula.vault-notes.ai`.
+Canonical MPS source: `modula.product.json` (1.0). Published ID stays `digital.modula.vault-notes.ai`.
 
 Vault AI is the separately versioned, provider-neutral AI add-on for `digital.modula.vault-notes`. Vault Notes does not import this repository. Greenfield resolves the add-on target, permissions, contributions, functions, service binding, and scoped note invocation.
 
