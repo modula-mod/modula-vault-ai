@@ -1,11 +1,11 @@
 {
-  "$schema": "https://modula.digital/schemas/product-standard/1.0-rc/product.schema.json",
+  "$schema": "https://modula.digital/schemas/product-standard/1.0/product.schema.json",
   "schema": "modula.product.1.0",
-  "productStandard": "1.0-RC",
+  "productStandard": "1.0",
   "identity": {
     "id": "digital.modula.vault-notes.ai",
     "kind": "addon",
-    "version": "0.3.0",
+    "version": "0.4.0",
     "displayName": "Vault AI",
     "description": "Provider-neutral AI add-on for Vault Notes. Requests the ai.generate engine capability through Greenfield. Does not name OpenAI, Gemini, or Anthropic.",
     "status": "beta",
@@ -19,7 +19,7 @@
   },
   "source": {
     "repository": "modula-mod/modula-vault-ai",
-    "commit": "3e5be8c3cf1722d69f19afca95dd36dd21df61a0",
+    "commit": "03bf8500a6d4f59a41882d3263895cbd8a664f72",
     "manifestPath": "modula.product.json",
     "provider": "github"
   },
@@ -32,11 +32,11 @@
   },
   "release": {
     "channel": "beta",
-    "notes": "Product-owned Vault AI actions, contributions, settings, and honest provider-unavailable presentation for the generic Modula Product Host. External AI providers remain NOT_CONFIGURED. Icon is a development placeholder.",
+    "notes": "Vault AI actions, contributions, settings, and honest provider-unavailable UI are authored as typed TSX and statically compiled to a non-executable artifact. External AI providers remain NOT_CONFIGURED. Icon is a development placeholder.",
     "builder": "modula-product-release",
     "provenance": {
-      "manifestSha256": "f8cf75b72f353841b8fb0df63c3a60a7199b8ef6fe4c60cb53fcded913aac222",
-      "frontendSha256": "f5b78e8f1ea629dae34cd029a066aeb033b8d824fd419c6f38316657d9ff6375"
+      "manifestSha256": "464c946fdc0871d4f454d47c2d5a6ed1dd32acde5b8fcb9279102fc8f9c2f6c3",
+      "frontendSha256": "7b2bb50ca78e1a255921b555c95529a77a359a9d9967b483215a5a2f7a402616"
     }
   },
   "security": {
@@ -56,7 +56,7 @@
     }
   },
   "compatibility": {
-    "productStandard": "^1.0.0-rc",
+    "productStandard": "^1.0.0",
     "greenfieldProtocol": "greenfield.v1",
     "host": ">=1.0.0",
     "platforms": [
@@ -98,7 +98,7 @@
     "artifact": {
       "path": "frontend/frontend.manifest.json",
       "mediaType": "application/vnd.modula.frontend+json",
-      "sha256": "f5b78e8f1ea629dae34cd029a066aeb033b8d824fd419c6f38316657d9ff6375",
+      "sha256": "7b2bb50ca78e1a255921b555c95529a77a359a9d9967b483215a5a2f7a402616",
       "schemaVersion": "1.0.0"
     }
   },

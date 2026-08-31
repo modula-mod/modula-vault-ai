@@ -1,13 +1,14 @@
 {
   "name": "@modula/vault-ai",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Provider-neutral governed AI add-on for Vault Notes.",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "files": ["dist", "modula.product.json", "modula.module.json", "module.manifest.json", "frontend", "assets", "AGENTS.md", "PRODUCT.md", "PRIVACY.md", "README.md", "CHANGELOG.md", "LICENSE", "SECURITY.md"],
+  "files": ["dist", "modula.product.json", "modula.module.json", "module.manifest.json", "frontend/frontend.manifest.json", "assets", "AGENTS.md", "PRODUCT.md", "PRIVACY.md", "README.md", "CHANGELOG.md", "LICENSE", "SECURITY.md"],
   "scripts": {
-    "frontend:build": "node scripts/build-frontend.mjs",
+    "frontend:check": "tsc -p tsconfig.frontend.json",
+    "frontend:build": "pnpm frontend:check && node scripts/build-frontend.mjs",
     "build": "pnpm frontend:build && tsc -p tsconfig.json",
     "test": "vitest run",
     "generate:manifests": "node scripts/generate-manifests.mjs",
@@ -19,6 +20,7 @@
     "@modula/module-validator": "file:../modula-module-standard/packages/module-validator"
   },
   "devDependencies": {
+    "@modula/product-ui": "file:../modula-product-standard/packages/product-ui",
     "@modula/module-fixtures": "file:../modula-module-standard/packages/module-fixtures",
     "@types/node": "^24.0.10",
     "typescript": "~6.0.3",

@@ -3,7 +3,7 @@
   "moduleId": "digital.modula.vault-notes.ai",
   "name": "Vault AI",
   "description": "Provider-neutral governed AI add-on for Vault Notes.",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "standardVersion": "2.1.0",
   "sectionVersions": {
     "identity": "2.1.0",
@@ -60,10 +60,10 @@
   "source": {
     "provider": "github",
     "repository": "modula-mod/modula-vault-ai",
-    "commit": "3e5be8c3cf1722d69f19afca95dd36dd21df61a0",
+    "commit": "03bf8500a6d4f59a41882d3263895cbd8a664f72",
     "manifestPath": "module.manifest.json",
-    "releaseTag": "vault-ai-v0.3.0",
-    "releaseAssetName": "modula-vault-ai-0.3.0.tgz"
+    "releaseTag": "vault-ai-v0.4.0",
+    "releaseAssetName": "modula-vault-ai-0.4.0.tgz"
   },
   "license": {
     "status": "firstParty",
@@ -355,11 +355,11 @@
     ]
   },
   "integrity": {
-    "manifestSha256": "c8cabd531075b662b2824689b77ba9edffbb8f2b3e9a6ea5247fa8bcbf1b7340",
+    "manifestSha256": "0fbbec372d340e8d4447d3f95151c2e66a2e94c60f35a32fea5e2fe232243f26",
     "releaseSha256": "0000000000000000000000000000000000000000000000000000000000000000"
   },
   "extensionProduct": {
-    "version": "0.3.0",
+    "version": "0.4.0",
     "kind": "addon",
     "targets": [
       {
