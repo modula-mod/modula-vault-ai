@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.5.0
+
+- Replace the nonexistent module-managed HTTP backend declaration with signed, provider-neutral AI product actions executed by Greenfield's generic AI engine broker.
+- Limit execution to one explicitly brokered Vault Notes record with private-context permission, no tools, no product-supplied provider URL, and preview-only results.
+- Keep all five product actions and settings product-owned in the immutable compiled frontend artifact.
+- Preserve an honest unavailable result when no real provider is configured; no deterministic output can run outside tests.
+
 ## 0.4.0
 
 - Moves Vault AI contribution and settings authoring to typed TSX compiled into the safe MPS frontend artifact.

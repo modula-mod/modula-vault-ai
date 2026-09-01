@@ -5,7 +5,7 @@
   "identity": {
     "id": "digital.modula.vault-notes.ai",
     "kind": "addon",
-    "version": "0.4.0",
+    "version": "0.5.0",
     "displayName": "Vault AI",
     "description": "Provider-neutral AI add-on for Vault Notes. Requests the ai.generate engine capability through Greenfield. Does not name OpenAI, Gemini, or Anthropic.",
     "status": "beta",
@@ -32,11 +32,11 @@
   },
   "release": {
     "channel": "beta",
-    "notes": "Vault AI actions, contributions, settings, and honest provider-unavailable UI are authored as typed TSX and statically compiled to a non-executable artifact. External AI providers remain NOT_CONFIGURED. Icon is a development placeholder.",
+    "notes": "Vault AI 0.5.0 routes signed product action declarations through Greenfield's generic AI engine broker. It has no product-owned HTTP backend, executes no remote product code, and remains honestly unavailable when no provider is configured.",
     "builder": "modula-product-release",
     "provenance": {
-      "manifestSha256": "464c946fdc0871d4f454d47c2d5a6ed1dd32acde5b8fcb9279102fc8f9c2f6c3",
-      "frontendSha256": "7b2bb50ca78e1a255921b555c95529a77a359a9d9967b483215a5a2f7a402616"
+      "manifestSha256": "b99bb74737b844b20a52a83a32685a9b8de6d7a7491ca8af774fb2274f995c9b",
+      "frontendSha256": "a3cded86aa979b44c5cbb4a65d7ae652749580fba76313ea2569c8d7e99497a9"
     }
   },
   "security": {
@@ -98,7 +98,7 @@
     "artifact": {
       "path": "frontend/frontend.manifest.json",
       "mediaType": "application/vnd.modula.frontend+json",
-      "sha256": "7b2bb50ca78e1a255921b555c95529a77a359a9d9967b483215a5a2f7a402616",
+      "sha256": "a3cded86aa979b44c5cbb4a65d7ae652749580fba76313ea2569c8d7e99497a9",
       "schemaVersion": "1.0.0"
     }
   },
@@ -124,6 +124,13 @@
       "category": "AI",
       "required": true,
       "risk": "medium"
+    },
+    {
+      "id": "ai.context.private",
+      "reason": "Send only the explicitly selected private note through Greenfield's bounded context broker.",
+      "category": "AI",
+      "required": true,
+      "risk": "high"
     }
   ],
   "capabilities": {

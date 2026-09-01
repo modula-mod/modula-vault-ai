@@ -1,7 +1,7 @@
 {
   "schemaVersion": "2.1.0",
   "standardVersion": "2.1.0",
-  "moduleVersion": "0.4.0",
+  "moduleVersion": "0.5.0",
   "manifestSchemaVersion": "2.1.0",
   "dataSchemaVersion": "1.0.0",
   "id": "digital.modula.vault-notes.ai",
@@ -97,20 +97,6 @@
       "policyMode": "observe"
     },
     {
-      "id": "notes.search",
-      "reason": "Search Vault Notes only when the user requests AI-assisted search.",
-      "risk": "medium",
-      "required": true,
-      "policyMode": "observe"
-    },
-    {
-      "id": "notes.update",
-      "reason": "Apply a reviewed AI result to the selected note.",
-      "risk": "medium",
-      "required": true,
-      "policyMode": "observe"
-    },
-    {
       "id": "notes.editor.contribute",
       "reason": "Register declared AI editor commands.",
       "risk": "low",
@@ -121,13 +107,6 @@
       "id": "notes.actions.contribute",
       "reason": "Register declared note actions.",
       "risk": "low",
-      "required": true,
-      "policyMode": "observe"
-    },
-    {
-      "id": "notes.events.subscribe",
-      "reason": "Subscribe to versioned Vault Notes events after approval.",
-      "risk": "medium",
       "required": true,
       "policyMode": "observe"
     },
@@ -144,13 +123,6 @@
       "risk": "high",
       "required": true,
       "policyMode": "require-confirmation"
-    },
-    {
-      "id": "ai.structured-output",
-      "reason": "Validate structured AI results before returning them.",
-      "risk": "medium",
-      "required": true,
-      "policyMode": "observe"
     }
   ],
   "capabilities": [
@@ -165,29 +137,9 @@
       "reason": "Expose reusable headless Vault AI functions."
     },
     {
-      "id": "services",
-      "required": true,
-      "reason": "Use a Greenfield-scoped extension service binding."
-    },
-    {
       "id": "ui-contributions",
       "required": true,
       "reason": "Publish declarative Vault Notes actions and commands."
-    },
-    {
-      "id": "jobs",
-      "required": true,
-      "reason": "Run bounded asynchronous AI work."
-    },
-    {
-      "id": "events",
-      "required": true,
-      "reason": "Subscribe to declared Vault Notes events when granted."
-    },
-    {
-      "id": "automations",
-      "required": true,
-      "reason": "Expose approved headless functions to governed automations."
     }
   ],
   "records": [],
@@ -221,10 +173,11 @@
       },
       "permissions": [
         "notes.read",
-        "ai.request"
+        "ai.request",
+        "ai.context.private"
       ],
       "aiCallable": true,
-      "automationCallable": true,
+      "automationCallable": false,
       "idempotent": true,
       "sideEffects": [],
       "timeoutMs": 15000,
@@ -238,8 +191,8 @@
         "includeOutput": false
       },
       "confirmationPolicy": {
-        "required": false,
-        "risk": "low"
+        "required": true,
+        "risk": "medium"
       }
     },
     {
@@ -269,15 +222,13 @@
       },
       "permissions": [
         "notes.read",
-        "notes.update",
-        "ai.request"
+        "ai.request",
+        "ai.context.private"
       ],
       "aiCallable": true,
-      "automationCallable": true,
+      "automationCallable": false,
       "idempotent": true,
-      "sideEffects": [
-        "record-write-after-confirmation"
-      ],
+      "sideEffects": [],
       "timeoutMs": 15000,
       "rateLimit": {
         "windowSeconds": 60,
@@ -320,15 +271,13 @@
       },
       "permissions": [
         "notes.read",
-        "notes.update",
-        "ai.request"
+        "ai.request",
+        "ai.context.private"
       ],
       "aiCallable": true,
-      "automationCallable": true,
+      "automationCallable": false,
       "idempotent": true,
-      "sideEffects": [
-        "record-write-after-confirmation"
-      ],
+      "sideEffects": [],
       "timeoutMs": 15000,
       "rateLimit": {
         "windowSeconds": 60,
@@ -371,10 +320,11 @@
       },
       "permissions": [
         "notes.read",
-        "ai.request"
+        "ai.request",
+        "ai.context.private"
       ],
       "aiCallable": true,
-      "automationCallable": true,
+      "automationCallable": false,
       "idempotent": true,
       "sideEffects": [],
       "timeoutMs": 15000,
@@ -388,8 +338,8 @@
         "includeOutput": false
       },
       "confirmationPolicy": {
-        "required": false,
-        "risk": "low"
+        "required": true,
+        "risk": "medium"
       }
     },
     {
@@ -419,10 +369,11 @@
       },
       "permissions": [
         "notes.read",
-        "ai.request"
+        "ai.request",
+        "ai.context.private"
       ],
       "aiCallable": true,
-      "automationCallable": true,
+      "automationCallable": false,
       "idempotent": true,
       "sideEffects": [],
       "timeoutMs": 15000,
@@ -436,8 +387,8 @@
         "includeOutput": false
       },
       "confirmationPolicy": {
-        "required": false,
-        "risk": "low"
+        "required": true,
+        "risk": "medium"
       }
     }
   ],
@@ -447,38 +398,216 @@
   "search": [],
   "ai": [
     {
-      "id": "digital.modula.vault-notes.ai.ai.summaries",
+      "id": "digital.modula.vault-notes.ai.ai.actions",
       "features": [
         "summarize",
-        "extract"
+        "extract",
+        "draft"
       ],
       "allowedContext": [
         "record-content",
         "user-selected-text"
       ],
-      "toolDefinitions": [
-        {
-          "id": "digital.modula.vault-notes.ai.function.summarize-note",
-          "mode": "host-ai-request-contract"
-        }
+      "toolDefinitions": [],
+      "structuredOutputs": [],
+      "permissions": [
+        "notes.read",
+        "ai.request",
+        "ai.context.private"
       ],
-      "structuredOutputs": [
+      "policyMode": "require-confirmation",
+      "productActions": [
         {
-          "type": "object",
-          "required": [
-            "summary"
+          "id": "digital.modula.vault-notes.ai.function.summarise",
+          "name": "Summarise",
+          "description": "Summarise the explicitly selected note without changing it.",
+          "promptId": "digital.modula.vault-notes.ai.prompt.summarise",
+          "promptVersionRange": "^1.0.0",
+          "inputSchema": "schemas/vault-ai-request.schema.json",
+          "outputSchema": "schemas/vault-ai-result.schema.json",
+          "requiredPermissions": [
+            "notes.read",
+            "ai.request",
+            "ai.context.private"
           ],
-          "properties": {
-            "summary": {
-              "type": "string"
-            }
+          "requiredCapabilities": [
+            "text-generation"
+          ],
+          "context": {
+            "sources": [
+              "current-record"
+            ],
+            "maximumRecords": 1,
+            "maximumCharacters": 20000,
+            "allowedClassifications": [
+              "private"
+            ]
+          },
+          "execution": {
+            "streaming": false,
+            "structuredOutput": false,
+            "maximumToolCalls": 0,
+            "timeoutMs": 15000
+          },
+          "application": {
+            "mode": "preview-only",
+            "explicitConfirmation": true,
+            "createsRecordRevision": false
+          }
+        },
+        {
+          "id": "digital.modula.vault-notes.ai.function.rewrite",
+          "name": "Rewrite",
+          "description": "Return a proposed rewrite for the explicitly selected note without changing it.",
+          "promptId": "digital.modula.vault-notes.ai.prompt.rewrite",
+          "promptVersionRange": "^1.0.0",
+          "inputSchema": "schemas/vault-ai-request.schema.json",
+          "outputSchema": "schemas/vault-ai-result.schema.json",
+          "requiredPermissions": [
+            "notes.read",
+            "ai.request",
+            "ai.context.private"
+          ],
+          "requiredCapabilities": [
+            "text-generation"
+          ],
+          "context": {
+            "sources": [
+              "current-record"
+            ],
+            "maximumRecords": 1,
+            "maximumCharacters": 20000,
+            "allowedClassifications": [
+              "private"
+            ]
+          },
+          "execution": {
+            "streaming": false,
+            "structuredOutput": false,
+            "maximumToolCalls": 0,
+            "timeoutMs": 15000
+          },
+          "application": {
+            "mode": "preview-only",
+            "explicitConfirmation": true,
+            "createsRecordRevision": false
+          }
+        },
+        {
+          "id": "digital.modula.vault-notes.ai.function.generate-title",
+          "name": "Generate title",
+          "description": "Return a proposed title for the explicitly selected note without changing it.",
+          "promptId": "digital.modula.vault-notes.ai.prompt.generate-title",
+          "promptVersionRange": "^1.0.0",
+          "inputSchema": "schemas/vault-ai-request.schema.json",
+          "outputSchema": "schemas/vault-ai-result.schema.json",
+          "requiredPermissions": [
+            "notes.read",
+            "ai.request",
+            "ai.context.private"
+          ],
+          "requiredCapabilities": [
+            "text-generation"
+          ],
+          "context": {
+            "sources": [
+              "current-record"
+            ],
+            "maximumRecords": 1,
+            "maximumCharacters": 20000,
+            "allowedClassifications": [
+              "private"
+            ]
+          },
+          "execution": {
+            "streaming": false,
+            "structuredOutput": false,
+            "maximumToolCalls": 0,
+            "timeoutMs": 15000
+          },
+          "application": {
+            "mode": "preview-only",
+            "explicitConfirmation": true,
+            "createsRecordRevision": false
+          }
+        },
+        {
+          "id": "digital.modula.vault-notes.ai.function.extract-tasks",
+          "name": "Extract tasks",
+          "description": "Extract a proposed task list from the explicitly selected note without changing it.",
+          "promptId": "digital.modula.vault-notes.ai.prompt.extract-tasks",
+          "promptVersionRange": "^1.0.0",
+          "inputSchema": "schemas/vault-ai-request.schema.json",
+          "outputSchema": "schemas/vault-ai-result.schema.json",
+          "requiredPermissions": [
+            "notes.read",
+            "ai.request",
+            "ai.context.private"
+          ],
+          "requiredCapabilities": [
+            "text-generation"
+          ],
+          "context": {
+            "sources": [
+              "current-record"
+            ],
+            "maximumRecords": 1,
+            "maximumCharacters": 20000,
+            "allowedClassifications": [
+              "private"
+            ]
+          },
+          "execution": {
+            "streaming": false,
+            "structuredOutput": false,
+            "maximumToolCalls": 0,
+            "timeoutMs": 15000
+          },
+          "application": {
+            "mode": "preview-only",
+            "explicitConfirmation": true,
+            "createsRecordRevision": false
+          }
+        },
+        {
+          "id": "digital.modula.vault-notes.ai.function.ask-note",
+          "name": "Ask about note",
+          "description": "Answer using only the explicitly selected note as context.",
+          "promptId": "digital.modula.vault-notes.ai.prompt.ask-note",
+          "promptVersionRange": "^1.0.0",
+          "inputSchema": "schemas/vault-ai-request.schema.json",
+          "outputSchema": "schemas/vault-ai-result.schema.json",
+          "requiredPermissions": [
+            "notes.read",
+            "ai.request",
+            "ai.context.private"
+          ],
+          "requiredCapabilities": [
+            "text-generation"
+          ],
+          "context": {
+            "sources": [
+              "current-record"
+            ],
+            "maximumRecords": 1,
+            "maximumCharacters": 20000,
+            "allowedClassifications": [
+              "private"
+            ]
+          },
+          "execution": {
+            "streaming": false,
+            "structuredOutput": false,
+            "maximumToolCalls": 0,
+            "timeoutMs": 15000
+          },
+          "application": {
+            "mode": "preview-only",
+            "explicitConfirmation": true,
+            "createsRecordRevision": false
           }
         }
-      ],
-      "permissions": [
-        "records:vault-notes:read"
-      ],
-      "policyMode": "require-confirmation"
+      ]
     }
   ],
   "diagnostics": {
@@ -589,7 +718,7 @@
   },
   "release": {
     "repository": "modula-mod/modula-vault-ai",
-    "commitSha": "03bf8500a6d4f59a41882d3263895cbd8a664f72",
+    "commitSha": "79f1437bf28bafc383842304246eeba7d73353ab",
     "checksum": "0000000000000000000000000000000000000000000000000000000000000000",
     "licenseEvidence": [
       "LICENSE",
@@ -700,35 +829,15 @@
     "provides": [
       {
         "id": "digital.modula.vault-notes.ai.functions",
-        "title": "Vault AI headless functions",
-        "version": "0.4.0",
-        "kind": "service"
+        "title": "Vault AI engine-backed functions",
+        "version": "0.5.0",
+        "kind": "capability"
       }
     ]
   },
   "serviceRegistry": {
     "version": "2.1.0",
-    "items": [
-      {
-        "id": "digital.modula.vault-notes.ai.service",
-        "title": "Vault AI service",
-        "kind": "ai",
-        "version": "0.4.0",
-        "contract": "digital.modula.vault-notes.ai.service.v1",
-        "permissions": [
-          "notes.read",
-          "ai.request"
-        ],
-        "capabilities": [
-          "vault.ai.complete"
-        ],
-        "inputSchemaRef": "schemas/vault-ai-request.schema.json",
-        "outputSchemaRef": "schemas/vault-ai-result.schema.json",
-        "timeoutMs": 15000,
-        "rateLimitPerMinute": 30,
-        "invocationDepthLimit": 2
-      }
-    ]
+    "items": []
   },
   "apiRegistry": {
     "version": "2.0.0",
@@ -830,15 +939,7 @@
   },
   "eventBus": {
     "version": "2.1.0",
-    "items": [
-      {
-        "id": "digital.modula.vault-notes.ai.subscription.note-updated",
-        "title": "Vault note updated subscription",
-        "events": [
-          "vault.note.updated.v1"
-        ]
-      }
-    ]
+    "items": []
   },
   "hookRegistry": {
     "version": "2.0.0",
@@ -938,7 +1039,7 @@
   },
   "capabilityDiscovery": {
     "version": "2.1.0",
-    "supportsBackend": true,
+    "supportsBackend": false,
     "supportsWidgets": false
   },
   "healthModel": {
@@ -1115,20 +1216,6 @@
           "policyMode": "observe"
         },
         {
-          "id": "notes.search",
-          "reason": "Search Vault Notes only when the user requests AI-assisted search.",
-          "risk": "medium",
-          "required": true,
-          "policyMode": "observe"
-        },
-        {
-          "id": "notes.update",
-          "reason": "Apply a reviewed AI result to the selected note.",
-          "risk": "medium",
-          "required": true,
-          "policyMode": "observe"
-        },
-        {
           "id": "notes.editor.contribute",
           "reason": "Register declared AI editor commands.",
           "risk": "low",
@@ -1139,13 +1226,6 @@
           "id": "notes.actions.contribute",
           "reason": "Register declared note actions.",
           "risk": "low",
-          "required": true,
-          "policyMode": "observe"
-        },
-        {
-          "id": "notes.events.subscribe",
-          "reason": "Subscribe to versioned Vault Notes events after approval.",
-          "risk": "medium",
           "required": true,
           "policyMode": "observe"
         }
@@ -1164,49 +1244,17 @@
           "risk": "high",
           "required": true,
           "policyMode": "require-confirmation"
-        },
-        {
-          "id": "ai.structured-output",
-          "reason": "Validate structured AI results before returning them.",
-          "risk": "medium",
-          "required": true,
-          "policyMode": "observe"
         }
       ]
     }
   },
   "jobRegistry": {
     "version": "2.1.0",
-    "items": [
-      {
-        "id": "digital.modula.vault-notes.ai.job.completion",
-        "title": "Vault AI completion",
-        "kind": "queue",
-        "functionId": "digital.modula.vault-notes.ai.function.summarise",
-        "retryPolicy": {
-          "maximumAttempts": 3,
-          "backoff": "exponential"
-        },
-        "pausedByDefault": false
-      }
-    ]
+    "items": []
   },
   "storageModel": {
     "version": "2.1.0",
-    "items": [
-      {
-        "id": "digital.modula.vault-notes.ai.storage.derived",
-        "title": "Vault AI derived state",
-        "version": "1.0.0",
-        "kind": "structured-records",
-        "scope": "account",
-        "quotaBytes": 5000000,
-        "retentionPolicy": "extension-owned",
-        "encrypted": true,
-        "exportSupported": true,
-        "deletionSupported": true
-      }
-    ]
+    "items": []
   },
   "widgetRegistry": {
     "version": "2.1.0",
@@ -1264,7 +1312,7 @@
   },
   "versioning": {
     "version": "2.1.0",
-    "moduleVersion": "0.4.0",
+    "moduleVersion": "0.5.0",
     "standardVersion": "2.1.0",
     "manifestVersion": "2.1.0"
   },
@@ -1300,7 +1348,7 @@
       "greenfield"
     ],
     "aiSupport": true,
-    "backendMode": "module-managed"
+    "backendMode": "engine-backed"
   },
   "engineReadiness": {
     "version": "2.1.0",
@@ -1366,7 +1414,7 @@
     "items": []
   },
   "extensionProduct": {
-    "version": "0.4.0",
+    "version": "0.5.0",
     "kind": "addon",
     "targets": [
       {
@@ -1374,11 +1422,8 @@
         "versionRange": ">=1.2.0 <2.0.0",
         "requiredCapabilities": [
           "notes.read",
-          "notes.search",
-          "notes.update",
           "notes.editor.contribute",
-          "notes.actions.contribute",
-          "notes.events.subscribe"
+          "notes.actions.contribute"
         ],
         "requiredExtensionPoints": [
           "digital.modula.vault-notes.note.actions",
@@ -1388,17 +1433,7 @@
         ]
       }
     ],
-    "extensionPoints": [
-      {
-        "id": "digital.modula.vault-notes.ai.research.source",
-        "title": "Vault AI research sources",
-        "contributionKinds": [
-          "search.provider"
-        ],
-        "requiredCapability": "notes.search",
-        "maxContributions": 10
-      }
-    ],
+    "extensionPoints": [],
     "contributions": [
       {
         "id": "digital.modula.vault-notes.ai.contribution.summarise-action",
@@ -1550,138 +1585,5 @@
       "maxDepth": 8,
       "maxNodes": 128
     }
-  },
-  "backend": {
-    "mode": "module-managed",
-    "protocolVersion": "1.0.0",
-    "endpoints": {
-      "baseUrlStrategy": "registry",
-      "apiVersion": "1.0.0",
-      "discoveryPath": "/.well-known/modula-module.json",
-      "healthPath": "/v1/health",
-      "capabilitiesPath": "/v1/capabilities",
-      "actionsPath": "/v1/actions",
-      "allowedHosts": [
-        "vault-ai.modula.digital"
-      ]
-    },
-    "authentication": {
-      "strategy": "greenfield-signed-jwt",
-      "tokenExchangeRequired": true,
-      "audience": "modula-vault-ai",
-      "tokenTtlSeconds": 120,
-      "sessionExchangePath": "/v1/session/exchange"
-    },
-    "trust": {
-      "publisherId": "modula",
-      "allowedOrigins": [
-        "https://vault-ai.modula.digital"
-      ]
-    },
-    "data": {
-      "primaryStore": "module-backend",
-      "categories": [
-        {
-          "id": "vault-ai-derived-state",
-          "description": "Vault AI extension-owned summaries, preferences, and derived metadata.",
-          "location": "module-backend",
-          "classification": "private",
-          "exportable": true,
-          "deletable": true
-        }
-      ],
-      "exportSupported": true,
-      "deletionSupported": true,
-      "backupResponsibility": "publisher"
-    },
-    "deployment": {
-      "ownership": "modula-hosted",
-      "multiTenant": true,
-      "selfHostingSupported": false
-    },
-    "actions": [
-      {
-        "actionId": "digital.modula.vault-notes.ai.function.summarise",
-        "title": "summarise",
-        "method": "POST",
-        "path": "/v1/actions/summarise",
-        "inputSchema": "schemas/vault-ai-request.schema.json",
-        "outputSchema": "schemas/vault-ai-result.schema.json",
-        "permissions": [
-          "notes.read",
-          "ai.request"
-        ],
-        "idempotent": true,
-        "timeoutMs": 15000,
-        "sideEffects": "none",
-        "confirmation": "none"
-      },
-      {
-        "actionId": "digital.modula.vault-notes.ai.function.rewrite",
-        "title": "rewrite",
-        "method": "POST",
-        "path": "/v1/actions/rewrite",
-        "inputSchema": "schemas/vault-ai-request.schema.json",
-        "outputSchema": "schemas/vault-ai-result.schema.json",
-        "permissions": [
-          "notes.read",
-          "notes.update",
-          "ai.request"
-        ],
-        "idempotent": true,
-        "timeoutMs": 15000,
-        "sideEffects": "internal-write",
-        "confirmation": "user"
-      },
-      {
-        "actionId": "digital.modula.vault-notes.ai.function.generate-title",
-        "title": "generate-title",
-        "method": "POST",
-        "path": "/v1/actions/generate-title",
-        "inputSchema": "schemas/vault-ai-request.schema.json",
-        "outputSchema": "schemas/vault-ai-result.schema.json",
-        "permissions": [
-          "notes.read",
-          "notes.update",
-          "ai.request"
-        ],
-        "idempotent": true,
-        "timeoutMs": 15000,
-        "sideEffects": "internal-write",
-        "confirmation": "user"
-      },
-      {
-        "actionId": "digital.modula.vault-notes.ai.function.extract-tasks",
-        "title": "extract-tasks",
-        "method": "POST",
-        "path": "/v1/actions/extract-tasks",
-        "inputSchema": "schemas/vault-ai-request.schema.json",
-        "outputSchema": "schemas/vault-ai-result.schema.json",
-        "permissions": [
-          "notes.read",
-          "ai.request"
-        ],
-        "idempotent": true,
-        "timeoutMs": 15000,
-        "sideEffects": "none",
-        "confirmation": "none"
-      },
-      {
-        "actionId": "digital.modula.vault-notes.ai.function.ask-note",
-        "title": "ask-note",
-        "method": "POST",
-        "path": "/v1/actions/ask-note",
-        "inputSchema": "schemas/vault-ai-request.schema.json",
-        "outputSchema": "schemas/vault-ai-result.schema.json",
-        "permissions": [
-          "notes.read",
-          "ai.request"
-        ],
-        "idempotent": true,
-        "timeoutMs": 15000,
-        "sideEffects": "none",
-        "confirmation": "none"
-      }
-    ]
   }
 }

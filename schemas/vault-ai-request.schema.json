@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://modula.digital/schemas/vault-ai/request/1.0.0",
+  "title": "Vault AI brokered action request",
+  "type": "object",
+  "required": ["noteId"],
+  "properties": {
+    "noteId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "instruction": {
+      "type": "string",
+      "maxLength": 4000
+    }
+  },
+  "additionalProperties": false
+}
