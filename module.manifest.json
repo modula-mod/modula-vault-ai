@@ -60,7 +60,7 @@
   "source": {
     "provider": "github",
     "repository": "modula-mod/modula-vault-ai",
-    "commit": "79f1437bf28bafc383842304246eeba7d73353ab",
+    "commit": "202feafee808a0f7b7cb59d48386fb1087305d73",
     "manifestPath": "module.manifest.json",
     "releaseTag": "vault-ai-v0.5.0",
     "releaseAssetName": "modula-vault-ai-0.5.0.tgz"
@@ -401,7 +401,7 @@
     ]
   },
   "integrity": {
-    "manifestSha256": "94b0d2b0952f8ec2d4d7168dfb91d830dcbfc0c17d5fcbd0f18c6a7467f71c98",
+    "manifestSha256": "59367cd218c557b273782c3efbc51342bd038f52d0d39a0d91a47a486565c608",
     "releaseSha256": "0000000000000000000000000000000000000000000000000000000000000000"
   },
   "extensionProduct": {

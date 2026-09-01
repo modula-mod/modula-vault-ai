@@ -19,7 +19,7 @@
   },
   "source": {
     "repository": "modula-mod/modula-vault-ai",
-    "commit": "03bf8500a6d4f59a41882d3263895cbd8a664f72",
+    "commit": "202feafee808a0f7b7cb59d48386fb1087305d73",
     "manifestPath": "modula.product.json",
     "provider": "github"
   },
@@ -35,7 +35,7 @@
     "notes": "Vault AI 0.5.0 routes signed product action declarations through Greenfield's generic AI engine broker. It has no product-owned HTTP backend, executes no remote product code, and remains honestly unavailable when no provider is configured.",
     "builder": "modula-product-release",
     "provenance": {
-      "manifestSha256": "b99bb74737b844b20a52a83a32685a9b8de6d7a7491ca8af774fb2274f995c9b",
+      "manifestSha256": "6013a7a2580a83ee529d80852ed0a9aa1398b11895ff69ae7b35225adf898b16",
       "frontendSha256": "a3cded86aa979b44c5cbb4a65d7ae652749580fba76313ea2569c8d7e99497a9"
     }
   },
