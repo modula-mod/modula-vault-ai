@@ -18,8 +18,12 @@ check(standard.extensionProduct?.kind === 'addon' && standard.extensionProduct.t
 check(standard.extensionProduct.contributions.length >= 7, 'dynamic contributions declared')
 check(standard.functions.some(item => item.id.endsWith('.function.ask-note')), 'ask-note function declared')
 check(!standard.permissions.some(item => ['notes.delete', 'notes.export'].includes(item.id)), 'delete and export capabilities absent')
-check(greenfield.backend?.endpoints?.baseUrlStrategy === 'registry' && !JSON.stringify(greenfield.backend).includes('http://'), 'service origin is registry-governed')
-check(greenfield.backend?.authentication?.tokenExchangeRequired === true && greenfield.backend.authentication.tokenTtlSeconds <= 900, 'short-lived Greenfield token exchange required')
+check(greenfield.backend === undefined && standard.backend === undefined, 'nonexistent product HTTP backend is not declared')
+check(greenfield.ai?.requiredCapabilities?.includes('text-generation') && greenfield.ai?.productActions?.length === 5, 'five signed provider-neutral AI engine actions declared')
+check(greenfield.ai.productActions.every(action => action.promptId.startsWith(`${greenfield.moduleId}.`) && action.requiredPermissions.includes('ai.context.private')), 'AI prompts are product-namespaced and private context is explicit')
+check(greenfield.ai.productActions.every(action => action.execution.maximumToolCalls === 0 && action.application.mode === 'preview-only' && action.application.explicitConfirmation === true), 'AI actions are tool-free, preview-only, and confirmation gated')
+check(greenfield.contributions.functions.every(item => item.mode === 'builtIn') && !JSON.stringify(greenfield).includes('remoteHttp'), 'AI functions use the generic built-in engine path, not remote product execution')
+check(existsSync('schemas/vault-ai-request.schema.json') && existsSync('schemas/vault-ai-result.schema.json'), 'referenced AI schemas are packaged')
 check(packageJson.files.includes('frontend/frontend.manifest.json') && !packageJson.files.includes('frontend'), 'release package includes only the compiled frontend')
 
 const frontendPath = product.frontend?.artifact?.path
@@ -41,6 +45,7 @@ const text = JSON.stringify({product, standard, greenfield}) + collectText('src'
 for (const prohibited of ['SELECT * FROM vault_notes', 'greenfield session bearer', 'providerApiKey', 'accessToken', 'refreshToken', 'customSql', 'remoteEntry', 'componentCode', 'dangerouslySetInnerHTML', 'rawJs', 'rawHtml']) check(!text.includes(prohibited), `prohibited construct absent: ${prohibited}`)
 check(text.includes('AI_PROVIDER_UNAVAILABLE'), 'provider unavailable runtime state is explicit')
 check(text.includes('TEST_ONLY'), 'deterministic provider is visibly test-only')
+check(!text.includes('vault-ai.modula.digital'), 'nonexistent Vault AI service origin is absent')
 if (failures.length) process.exit(1)
 console.log('Vault AI release verifier passed')
 

@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://modula.digital/schemas/vault-ai/result/1.0.0",
+  "title": "Vault AI preview result",
+  "type": "object",
+  "required": ["text"],
+  "properties": {
+    "text": {
+      "type": "string",
+      "maxLength": 50000
+    }
+  },
+  "additionalProperties": false
+}
